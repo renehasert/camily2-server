@@ -1,72 +1,30 @@
+const Query = require("./resolvers/queries");
+const Mutation = require("./resolvers/mutations");
+const Subscription = require("./resolvers/subscriptions");
+
 const resolvers = {
-  Query: {
-    async getUser(root, { id }, { models }) {
-      return models.user.findByPk(id);
+  Query,
+  Mutation,
+  // Subscription,
+  event: {
+    async member(member) {
+      return member.getMember();
     },
-    async getAllEvents(root, args, { models }) {
-      return models.event.findAll();
+    async activity(activity) {
+      return activity.getActivity();
     },
-    async getMember(root, { id }, { models }) {
-      return await models.member.findByPk(id);
+    async user(user) {
+      return user.getUser();
     },
   },
-  Mutation: {
-    async createEvent(
-      root,
-      {
-        title,
-        description,
-        date,
-        day,
-        month,
-        year,
-        recurrence,
-        startTime,
-        endTime,
-        activityId,
-        memberId,
-        userId,
-      },
-      { models }
-    ) {
-      return models.event.create({
-        title,
-        description,
-        date,
-        day,
-        month,
-        year,
-        recurrence,
-        startTime,
-        endTime,
-        activityId,
-        memberId,
-        userId,
-      });
-    },
-    async createMember(
-      root,
-      { firstName, gender, birthday, colour, parent, userId },
-      { models }
-    ) {
-      return models.member.create({
-        firstName,
-        gender,
-        birthday,
-        colour,
-        parent,
-        userId,
-      });
+  member: {
+    async user(user) {
+      return user.getUser();
     },
   },
   user: {
     async member(member) {
-      return member.getMember();
-    },
-  },
-  event: {
-    async user(user) {
-      return user.getUser();
+      return member.getMembers();
     },
   },
 };

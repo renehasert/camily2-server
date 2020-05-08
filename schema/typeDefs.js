@@ -5,7 +5,7 @@ const typeDefs = gql`
     id: Int!
     name: String!
     email: String!
-    member: [member!]!
+    member: [member]
   }
   type member {
     id: Int!
@@ -14,7 +14,7 @@ const typeDefs = gql`
     birthday: String!
     colour: String!
     parent: Boolean!
-    userId: Int!
+    user: user
   }
   type activity {
     id: Int!
@@ -31,17 +31,18 @@ const typeDefs = gql`
     recurrence: String
     startTime: String
     endTime: String
-    activity: [activity!]
+    activity: activity
     activityId: Int
-    member: [member!]
+    member: member
     memberId: Int
-    user: [user!]
     userId: Int!
+    user: user
   }
   type Query {
-    getUser(id: Int!): user
-    getAllEvents: [event!]!
+    getUser(id: Int!): user!
+    getAllEvents: [event]
     getMember(id: Int!): member
+    getBirthday(month: Int!, activityId: Int!): [event]
   }
   type Mutation {
     createEvent(
